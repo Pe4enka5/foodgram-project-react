@@ -137,12 +137,12 @@ DJOSER = {
         'user_create': 'api.serializers.UserRegistrationSerializer',
         'user': 'api.serializers.CustomUserSerializer',
         'current_user': 'api.serializers.CustomUserSerializer',
-       },
+    },
     'HIDE_USERS': False,
     'PERMISSIONS': {
         'user_list': ['rest_framework.permissions.AllowAny'],
         'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly'],
-       },
-   }
+    },
+}
 
 NOT_USERNAME = ('me', )
