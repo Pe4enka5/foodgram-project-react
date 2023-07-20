@@ -7,10 +7,10 @@ from recipes.models import Ingredient
 
 
 def process_file(name: str):
-    return csv.reader(open(os.path.join(settings.BASE_DIR,
-                                        'D:/Dev/diplom/foodgram-project-react/data/',
-                                        name), 'r', encoding='utf-8'),
-                      delimiter=',')
+    return csv.reader(open(os.path.join(
+        settings.BASE_DIR,
+        'D:/Dev/diplom/foodgram-project-react/data/',
+        name), 'r', encoding='utf-8'), delimiter=',')
 
 
 class Command(BaseCommand):

@@ -123,8 +123,8 @@ class RecipeIngredient(models.Model):
         verbose_name = 'Состав рецепта'
         verbose_name_plural = 'Состав рецепта'
         constraints = [models.UniqueConstraint(
-                fields=['recipe', 'ingredient'],
-                name='unique_ingredient')]
+                       fields=['recipe', 'ingredient'],
+                       name='unique_ingredient')]
 
 
 class Favorite(models.Model):
