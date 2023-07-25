@@ -1,17 +1,18 @@
 ﻿import re
 
 from django.forms import ValidationError
-from foodgram.settings import NOT_USERNAME
+from django.conf import settings
 
 
 def validate_username(username):
-    if username in NOT_USERNAME:
+    if username in settings.BANNED_USERNAME:
         raise ValidationError(f'Использовать имя "{username}" запрещено')
 
     result = re.sub(r'[\w.@+-]+', '', username)
     if result:
+        result_unique = ''.join(set(result))
         raise ValidationError(
             'Имя пользователя содержит недопустимые символы: '
-            f'{result}'
+            f'{result_unique}'
         )
     return username
