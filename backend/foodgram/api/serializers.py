@@ -48,8 +48,8 @@ class CustomUserSerializer(UserSerializer):
         request = self.context.get('request')
         if request.user.is_authenticated:
             return obj.following.filter(
-                    user=request.user, following=obj
-                ).exists()
+                user=request.user, following=obj
+            ).exists()
         return False
 
 
@@ -227,8 +227,8 @@ class SubscriptionsSerializer(CustomUserSerializer):
 
     class Meta:
         model = User
-        fields = (CustomUserSerializer.Meta.fields +
-                  ('recipes', 'recipes_count'))
+        fields = (CustomUserSerializer.Meta.fields
+                  (+ 'recipes', 'recipes_count'))
         read_only_fields = ('email', 'username', 'first_name', 'last_name',
                             'is_subscribed', 'recipes', 'recipes_count')
 
