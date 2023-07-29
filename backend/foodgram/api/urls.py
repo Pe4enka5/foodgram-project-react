@@ -10,7 +10,7 @@ router = DefaultRouter()
 router.register('tags', TagsViewSet, basename='tags')
 router.register('ingredients', IngredientViewSet, basename='ingredients')
 router.register('recipes', RecipeViewSet, basename='recipes')
-router.register(r'users', SubcsribeView, basename='users')
+router.register('users', SubcsribeView, basename='users')
 
 urlpatterns = [
     path('', include(router.urls)),

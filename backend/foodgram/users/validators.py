@@ -1,6 +1,6 @@
 ﻿import re
 
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
 from django.conf import settings
 
 
