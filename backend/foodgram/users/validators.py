@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 def validate_username(username):
-    if username in settings.BANNED_USERNAME:
+    if username in settings.BANNED_USERNAMES:
         raise ValidationError(f'Использовать имя "{username}" запрещено')
 
     result = re.sub(r'[\w.@+-]+', '', username)

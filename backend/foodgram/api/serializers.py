@@ -125,8 +125,7 @@ class RecipeAddSerializer(serializers.ModelSerializer):
         fields = ('id', 'tags', 'author', 'ingredients', 'name',
                   'image', 'text', 'cooking_time')
 
-    def validate_ingredients(self, ingredients_data):
-        ingredients = ingredients_data
+    def validate_ingredients(self, ingredients):
         if not ingredients:
             raise ValidationError('Нужно выбрать минимум 1 ингредиент!')
         unique_ingredients = set()
@@ -138,8 +137,7 @@ class RecipeAddSerializer(serializers.ModelSerializer):
             raise ValidationError('Ингредиенты не должны повторяться')
         return ingredients
 
-    def validate_tags(self, tags_data):
-        tags = tags_data
+    def validate_tags(self, tags):
         if not tags:
             raise serializers.ValidationError('Нужно добавить тэг')
         unique_tags = set()
@@ -176,8 +174,7 @@ class RecipeAddSerializer(serializers.ModelSerializer):
         tags = validated_data.pop('tags', None)
         instance.ingredients.clear()
         self.add_recipe_ingredients(ingredients, instance)
-        if tags is not None:
-            instance.tags.set(tags)
+        instance.tags.set(tags)
         return super().update(instance, validated_data)
 
     def to_representation(self, recipe):
