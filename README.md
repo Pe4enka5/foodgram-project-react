@@ -43,7 +43,7 @@ sudo docker compose -f docker-compose.production.yml exec backend python manage.
 Никнейм: ZePe4
 Пароль: Gtxthbwf89
 ```
-- Все готово!
+- Все готово! Сайт доступен по адресу https://foodgrampe4.hopto.org/
 
 ### Автор: 
 Андрей Pe4enka5 Печерица
