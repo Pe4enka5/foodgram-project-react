@@ -1,5 +1,6 @@
 ﻿from django.contrib.auth import get_user_model
 from django.db import transaction
+# from django.shortcuts import get_object_or_404
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
@@ -62,11 +63,16 @@ class RecipeinfoSerializer(serializers.ModelSerializer):
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     """Сериализатор об информации ингредиентов в рецепте"""
-    ingredient = IngredientsSerializer(read_only=True)
+    id = serializers.IntegerField(source='ingredient.id', read_only=True)
+    name = serializers.CharField(source='ingredient.name', read_only=True)
+    measurement_unit = serializers.CharField(
+        source='ingredient.measurement_unit',
+        read_only=True
+    )
 
     class Meta:
         model = RecipeIngredient
-        fields = ('ingredient', 'amount')
+        fields = ('id', 'name', 'measurement_unit', 'amount')
 
 
 class RecipeIngredientAmountSerializer(serializers.ModelSerializer):
@@ -132,7 +138,7 @@ class RecipeAddSerializer(serializers.ModelSerializer):
         for ingredient in ingredients:
             if int(ingredient['amount']) <= 0:
                 raise ValidationError('Количество должно быть положительным!')
-            unique_ingredients.append(ingredient.get('id'))
+            unique_ingredients.add(ingredient.get('id'))
         if len(ingredients) > len(unique_ingredients):
             raise ValidationError('Ингредиенты не должны повторяться')
         return ingredients
@@ -150,10 +156,10 @@ class RecipeAddSerializer(serializers.ModelSerializer):
     def add_recipe_ingredients(self, ingredients, recipe):
         recipe_ingredients = []
         for ingredient in ingredients:
-            ingredient_id = ingredient['id']
+            ingredient_obj = Ingredient.objects.get(id=ingredient['id'])
             amount = ingredient['amount']
             recipe_ingredients.append(
-                RecipeIngredient(recipe=recipe, ingredient_id=ingredient_id,
+                RecipeIngredient(recipe=recipe, ingredient=ingredient_obj,
                                  amount=amount)
             )
         RecipeIngredient.objects.bulk_create(recipe_ingredients)
@@ -161,11 +167,11 @@ class RecipeAddSerializer(serializers.ModelSerializer):
     @transaction.atomic
     def create(self, validated_data):
         author = self.context.get('request').user
-        tags_data = validated_data.pop('tags')
-        ingredients_data = validated_data.pop('ingredients')
+        tags = validated_data.pop('tags')
+        ingredients = validated_data.pop('ingredients')
         recipe = Recipe.objects.create(author=author, **validated_data)
-        self.add_recipe_ingredients(ingredients_data, recipe)
-        recipe.tags.set(tags_data)
+        self.add_recipe_ingredients(ingredients, recipe)
+        recipe.tags.set(tags)
         return recipe
 
     @transaction.atomic

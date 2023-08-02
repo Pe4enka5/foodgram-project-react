@@ -2,19 +2,19 @@ version: '3.3'
 
 volumes:
   pg_data:
-  static:
-  media:
+  static_value:
+  media_value:
 
 services:
   db:
     image: postgres:13
-    env_file: .env
+    env_file: ./.env
     volumes:
       - pg_data:/var/lib/postgresql/data
-
+      
   backend:
-    build: ./backend/
-    env_file: .env
+    image: pe4enkaaas/foodgram_backend
+    env_file: ./.env
     depends_on:
       - db
     volumes:
@@ -22,10 +22,7 @@ services:
       - media_value:/app/media/
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
-    command: cp -r /app/build/. /frontend_static/
+    image: pe4enkaaas/foodgram_frontend
     volumes:
        - ../frontend/:/app/result_build/
 
@@ -42,3 +39,4 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_value:/static/
       - media_value:/media/
+
