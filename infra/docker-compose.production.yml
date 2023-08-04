@@ -38,5 +38,5 @@ services:
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_value:/static/
-      - media_value:/media/
+      - media_value:/app/media/
 
