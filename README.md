@@ -11,14 +11,6 @@
 Python, Django, DRF, Djoser, Gunicorn, Nginx, Docker
 
 ## Для запуска Вам понадобиться:
-- Установить на сервер Docker:
-```
-sudo apt update
-sudo apt install curl
-curl -fSL https://get.docker.com -o get-docker.sh
-sudo sh ./get-docker.sh
-sudo apt-get install docker-compose-plugin
-``` 
 - Создать папку 'foodgram' и в ней создать файл с переменным .env . Пример шаблона представлен в файле .env.example
 - Скопируйте файл 'nginx.conf' в папку 'foodgram'
 - Скопируйте файл 'docker-compose.production.yml' в папку 'foodgram' и запустите Docker
@@ -31,12 +23,6 @@ sudo docker compose -f docker-compose.production.yml exec backend python manage.
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
 sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /static/
 ``` 
-- Настройте Nginx, проверьте, что все - ок и перезапустите программу
-```
-nano /etc/nginx/sites-enabled/default
-sudo nginx -t
-sudo service nginx reload 
-```
 - Создать суперюзера
 ```
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py createsuperuser

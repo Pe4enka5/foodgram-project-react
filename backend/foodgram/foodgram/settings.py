@@ -1,5 +1,4 @@
 import os
-
 from distutils.util import strtobool
 from pathlib import Path
 
@@ -61,13 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
-"""Для тестирования на компьютере"""
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -110,11 +102,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'collected_static'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -145,7 +135,7 @@ DJOSER = {
     },
 }
 
-"""Константы"""
+# Константы
 BANNED_USERNAMES = ('me', )
 MAX_LENGTH_USERNAME = 150
 MAX_LENGTH_FIRST_NAME = 150
