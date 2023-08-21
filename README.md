@@ -26,8 +26,6 @@ sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/col
 - Создать суперюзера
 ```
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py createsuperuser
-Никнейм: ZePe4
-Пароль: Gtxthbwf89
 ```
 - Все готово! Сайт доступен по адресу https://foodgrampe4.hopto.org/
 
